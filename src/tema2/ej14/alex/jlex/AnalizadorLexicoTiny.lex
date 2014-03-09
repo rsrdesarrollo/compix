@@ -24,6 +24,13 @@ letra  = ([A-Z]|[a-z])
 digitoPositivo = [1-9]
 digito = ({digitoPositivo}|0)
 separador = [ \t\r\b\n]
+int = int
+bool = bool
+true = true
+false = false
+and = and
+or = or
+not = not
 identificador = {letra}({letra}|{digito}|_)*
 numero = (0|({digitoPositivo}{digito}*))
 add = \+
@@ -41,13 +48,6 @@ parentesisCierre = \)
 asignacion = \=
 puntocoma  = \;
 divsec = &&
-int = int
-bool = bool
-true = true
-false = false
-and = and
-or = or
-not = not
 %%
 {separador}               {}
 {int}					  {return ops.unidadInt();}
