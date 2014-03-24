@@ -1,4 +1,4 @@
-package tema2.ej14.alex.manual;
+package alex.manual;
 
 public abstract class UnidadLexica {
 	private ClaseLexica clase;

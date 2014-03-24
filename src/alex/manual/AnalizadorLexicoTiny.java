@@ -1,9 +1,11 @@
-package tema2.ej14.alex.manual;
+package alex.manual;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+
+import manual.errors.GestionErroresTiny;
 
 public class AnalizadorLexicoTiny {
 
@@ -27,6 +29,8 @@ public class AnalizadorLexicoTiny {
 	private int filaInicio;
 	private int columnaInicio;
 	private int filaActual;
+	
+	private GestionErroresTiny gestorErrores;
 
 	private int columnaActual;
 
@@ -43,9 +47,11 @@ public class AnalizadorLexicoTiny {
 	}
 
 	private void error() {
-		System.err.println("(" + filaActual + ',' + columnaActual + ") "
-				+ (char) sigCar + " Caracter inesperado");
-		System.exit(1);
+		gestorErrores.errorLexico(filaActual, lex.toString());
+	}
+
+	public void fijaGestionErrores(GestionErroresTiny errores) {
+		this.gestorErrores = errores;
 	}
 
 	private boolean hayAmpersand() {

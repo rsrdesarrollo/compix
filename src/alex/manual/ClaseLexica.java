@@ -1,4 +1,4 @@
-package tema2.ej14.alex.manual;
+package alex.manual;
 
 public enum ClaseLexica {
 	IDEN, ENT, PAP, PCI, ASIGNACION, PUNTO_COMA, ADD, SUB, MUL,

@@ -1,4 +1,4 @@
-package tema2.ej14.alex.jlex;
+package alex.jlex;
 
 import java.io.FileInputStream;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package tema2.ej14.alex.manual;
+package alex.manual;
 
 public class UnidadLexicaMultivaluada extends UnidadLexica {
 	private String lexema;
