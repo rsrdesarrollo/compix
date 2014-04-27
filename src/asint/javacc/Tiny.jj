@@ -1,0 +1,58 @@
+options  {
+  STATIC=false;
+}  
+PARSER_BEGIN(AnalizadorSintacticoTiny)
+package asint.javacc;
+
+public class AnalizadorSintacticoTiny {}
+	PARSER_END(AnalizadorSintacticoTiny)
+	TOKEN:{<#letra:["a"-"z","A"-"Z"]>}
+	TOKEN:{<#digitoPositivo:["1"-"9"]>}
+	TOKEN:{<#digito:<digitoPositivo>|"0">}
+	SKIP:{<[" ","\t","\r","\b","\n"]>}  
+	TOKEN: {<int_t:"int">}
+	TOKEN: {<bool:"bool">}
+	TOKEN: {<true_t:"true">}
+	TOKEN: {<false_t:"false">}
+	TOKEN: {<and:"and">}
+	TOKEN: {<or:"or">}
+	TOKEN: {<not:"not">}
+	TOKEN:{<identificador:<letra>(<letra>|<digito>|"_")*>}
+	TOKEN:{<numero:"0"|(<digitoPositivo>(<digito>)*)>}
+	TOKEN:{<get:">=">}
+	TOKEN:{<let:"<=">}
+	TOKEN:{<eq:"==">}
+	TOKEN:{<neq:"!=">}
+	TOKEN:{<divsec:"&&">}
+
+	void Sp()   : {} {S() <EOF>}
+	void S()    : {} {declaraciones() <divsec> instrucciones()}
+
+	void declaraciones()    : {} {declaracion() declaraciones_s()}
+	void declaraciones_s()  : {} {";" declaraciones() | {}}
+
+	void instrucciones() : {} {instruccion() instrucciones_s()}
+	void instrucciones_s()    : {} {";" instrucciones() | {}}
+
+	void declaracion() : {} {tipo() <identificador>}
+	void instruccion() : {} {<identificador> "=" E()}
+	void tipo() : {} {<int_t> | <bool>}
+
+	void E() :{} {E1() E_s()}
+	void E_s() : {} {OP0() E1() | {}}
+
+	void E1() : {} {E2() E1_s() | <not> E1() E1_s()}
+	void E1_s() : {} {OP1() E2() E1_s() | {}}
+
+	void E2() : {} {E3() E2_s()}
+	void E2_s() : {} {OP2() E3() E2_s() | {}}
+
+	void E3() : {} {OP3() E3() | E4()}
+	void E4() : {} {<identificador> | <numero> | booleano() | "(" E() ")"}
+
+	void booleano() : {} {<true_t> | <false_t>}
+
+	void OP0() : {} {<eq> | <neq> | "<" | <let> | ">" | <get>}
+	void OP1() : {} {<and> | <or>}
+	void OP2() : {}{"+" | "-" | "*" | "/"}
+	void OP3() : {}{"+" | "-"}
