@@ -1,0 +1,7 @@
+int peso;
+bool pesado
+
+&&
+
+peso = (((54 * -65) / 2));
+pesado = (58 >= sde) and (aaa and (not pesado))
