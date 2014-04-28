@@ -1,0 +1,17 @@
+package asint.cup;
+
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+
+import asint.cup.alex.AnalizadorLexicoTiny;
+
+public class Main {
+   public static void main(String[] args) throws Exception {
+     Reader input = new InputStreamReader(new FileInputStream("input.txt"));
+     AnalizadorLexicoTiny alex = new AnalizadorLexicoTiny(input);
+	 parser asint = new parser(alex);
+	 //asint.setScanner(alex);
+	 asint.parse();
+ }
+}
