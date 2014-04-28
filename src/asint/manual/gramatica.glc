@@ -23,11 +23,11 @@ grammar grammar_ej14 {
 	// Factorizar E
 	E_s := OP0 E1 | ;
 	
-	// Quitar recursión izq E1 ( E1 := E1 OP1 E2 | E2 | NOT E1; )
-	E1 := E2 E1_s | NOT E1 E1_s;
+	// Quitar recursiÃ³n izq E1 ( E1 := E1 OP1 E2 | E2 | NOT E1; )
+	E1 := E2 E1_s | NOT E2 E1_s;
 	E1_s := OP1 E2 E1_s | ;
 	
-	// Quitar recursión izq E2 ( E2 := E2 OP2 E3 | E3; )
+	// Quitar recursiÃ³n izq E2 ( E2 := E2 OP2 E3 | E3; )
 	E2 := E3 E2_s;
 	E2_s := OP2 E3 E2_s | ;
 	

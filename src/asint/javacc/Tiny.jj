@@ -41,7 +41,7 @@ public class AnalizadorSintacticoTiny {}
 	void E() :{} {E1() E_s()}
 	void E_s() : {} {OP0() E1() | {}}
 
-	void E1() : {} {E2() E1_s() | <not> E1() E1_s()}
+	void E1() : {} {E2() E1_s() | <not> E2() E1_s()}
 	void E1_s() : {} {OP1() E2() E1_s() | {}}
 
 	void E2() : {} {E3() E2_s()}

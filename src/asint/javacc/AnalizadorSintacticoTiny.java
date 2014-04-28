@@ -117,7 +117,7 @@ public class AnalizadorSintacticoTiny implements AnalizadorSintacticoTinyConstan
       }
     case not:{
       jj_consume_token(not);
-      E1();
+      E2();
       E1_s();
       break;
       }

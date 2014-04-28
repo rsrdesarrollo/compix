@@ -137,7 +137,7 @@ public class AnalizadorSintacticoTiny {
 			break;
 		case NOT:
 			empareja(ClaseLexica.NOT);
-			E1();
+			E2();
 			E1_s();
 			break;
 		case FALSE:
