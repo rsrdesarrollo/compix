@@ -7,7 +7,7 @@ import java.io.Reader;
 
 import java_cup.runtime.Scanner;
 import java_cup.runtime.Symbol;
-import asint.cup.sym;
+import asint.cup.ClaseLexica;
 import asint.cup.errors.GestionErroresTiny;
 
 public class AnalizadorLexicoTiny implements Scanner {
@@ -24,7 +24,7 @@ public class AnalizadorLexicoTiny implements Scanner {
 		do {
 			unidad = al.sigToken();
 			System.out.println(unidad);
-		} while (unidad.clase() != sym.EOF);
+		} while (unidad.clase() != ClaseLexica.EOF);
 	}
 	private Reader input;
 	private StringBuffer lex;
@@ -288,116 +288,116 @@ public class AnalizadorLexicoTiny implements Scanner {
 
 	private UnidadLexica unidadAdd() {
 		return new UnidadLexica(filaInicio,
-				sym.ADD, "+");
+				ClaseLexica.ADD, "+");
 	}
 
 	private UnidadLexica unidadAsignacion() {
 		return new UnidadLexica(filaInicio,
-				sym.ASIGNACION, "=");
+				ClaseLexica.ASIGNACION, "=");
 	}
 
 	private UnidadLexica unidadDiv() {
 		return new UnidadLexica(filaInicio,
-				sym.DIV, "/");
+				ClaseLexica.DIV, "/");
 	}
 
 	private UnidadLexica unidadDivisionSeccion() {
 		return new UnidadLexica(filaInicio,
-				sym.DIV_SEC, "&&");
+				ClaseLexica.DIV_SEC, "&&");
 	}
 
 	private UnidadLexica unidadEnt() {
 		return new UnidadLexica(filaInicio,
-				sym.ENT, lex.toString());
+				ClaseLexica.ENT, lex.toString());
 	}
 
 	private UnidadLexica unidadEof() {
 		return new UnidadLexica(filaInicio,
-				sym.EOF, "<EOF>");
+				ClaseLexica.EOF, "<EOF>");
 	}
 
 	private UnidadLexica unidadEQ() {
 		return new UnidadLexica(filaInicio,
-				sym.EQ, "==");
+				ClaseLexica.EQ, "==");
 	}
 
 	private UnidadLexica unidadGET() {
 		return new UnidadLexica(filaInicio,
-				sym.GET, ">=");
+				ClaseLexica.GET, ">=");
 	}
 
 	private UnidadLexica unidadGT() {
 		return new UnidadLexica(filaInicio,
-				sym.GT, ">");
+				ClaseLexica.GT, ">");
 	}
 
 	private UnidadLexica unidadId() {
 		switch (lex.toString()) {
 		case "true":
 			return new UnidadLexica(filaInicio,
-					sym.TRUE, "true");
+					ClaseLexica.TRUE, "true");
 		case "false":
 			return new UnidadLexica(filaInicio,
-					sym.FALSE, "false");
+					ClaseLexica.FALSE, "false");
 		case "int":
 			return new UnidadLexica(filaInicio,
-					sym.INT, "int");
+					ClaseLexica.INT, "int");
 		case "bool":
 			return new UnidadLexica(filaInicio,
-					sym.BOOL, "bool");
+					ClaseLexica.BOOL, "bool");
 		case "and":
 			return new UnidadLexica(filaInicio,
-					sym.AND, "and");
+					ClaseLexica.AND, "and");
 		case "or":
 			return new UnidadLexica(filaInicio,
-					sym.OR, "or");
+					ClaseLexica.OR, "or");
 		case "not":
 			return new UnidadLexica(filaInicio,
-					sym.NOT, "not");
+					ClaseLexica.NOT, "not");
 		default:
 			return new UnidadLexica(filaInicio,
-					sym.IDEN, lex.toString());
+					ClaseLexica.IDEN, lex.toString());
 		}
 	}
 
 	private UnidadLexica unidadLET() {
 		return new UnidadLexica(filaInicio,
-				sym.LET, "<=");
+				ClaseLexica.LET, "<=");
 	}
 
 	private UnidadLexica unidadLT() {
 		return new UnidadLexica(filaInicio,
-				sym.LT, "<");
+				ClaseLexica.LT, "<");
 	}
 
 	private UnidadLexica unidadMul() {
 		return new UnidadLexica(filaInicio,
-				sym.MUL, "*");
+				ClaseLexica.MUL, "*");
 	}
 
 	private UnidadLexica unidadNEQ() {
 		return new UnidadLexica(filaInicio,
-				sym.NEQ, "!=");
+				ClaseLexica.NEQ, "!=");
 	}
 
 	private UnidadLexica unidadPAp() {
 		return new UnidadLexica(filaInicio,
-				sym.PAP, "(");
+				ClaseLexica.PAP, "(");
 	}
 
 	private UnidadLexica unidadPCi() {
 		return new UnidadLexica(filaInicio,
-				sym.PCI, ")");
+				ClaseLexica.PCI, ")");
 	}
 
 	private UnidadLexica unidadPuntoYComa() {
 		return new UnidadLexica(filaInicio,
-				sym.PUNTO_COMA, ";");
+				ClaseLexica.PUNTO_COMA, ";");
 	}
 
 	private UnidadLexica unidadSub() {
 		return new UnidadLexica(filaInicio,
-				sym.SUB, "-");
+				ClaseLexica.SUB, "-");
 	}
 
 	@Override
