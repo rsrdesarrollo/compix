@@ -28,26 +28,26 @@ public class AnalizadorSintacticoTiny {}
 	void Sp()   : {} {S() <EOF>}
 	void S()    : {} {declaraciones() <divsec> instrucciones()}
 
-	void declaraciones()    : {} {declaracion() declaraciones_s()}
-	void declaraciones_s()  : {} {";" declaraciones() | {}}
+	void declaraciones()    : {} {declaracion() declaraciones_r()}
+	void declaraciones_r()  : {} {";" declaracion() declaraciones_r() | {}}
 
-	void instrucciones() : {} {instruccion() instrucciones_s()}
-	void instrucciones_s()    : {} {";" instrucciones() | {}}
+	void instrucciones() : {} {instruccion() instrucciones_r()}
+	void instrucciones_r()    : {} {";" instruccion() instrucciones_r() | {}}
 
 	void declaracion() : {} {tipo() <identificador>}
 	void instruccion() : {} {<identificador> "=" E()}
 	void tipo() : {} {<int_t> | <bool>}
 
-	void E() :{} {E1() E_s()}
-	void E_s() : {} {OP0() E1() | {}}
+	void E() :{} {E1() E_r()}
+	void E_r() : {} {OP0() E1() | {}}
 
-	void E1() : {} {E2() E1_s() | <not> E2() E1_s()}
-	void E1_s() : {} {OP1() E2() E1_s() | {}}
+	void E1() : {} {E2() E1_r()}
+	void E1_r() : {} {OP1() E2() E1_r() | {}}
 
-	void E2() : {} {E3() E2_s()}
-	void E2_s() : {} {OP2() E3() E2_s() | {}}
+	void E2() : {} {E3() E2_r()}
+	void E2_r() : {} {OP2() E3() E2_r() | {}}
 
-	void E3() : {} {OP3() E3() | E4()}
+	void E3() : {} {OP3() E4() | E4()}
 	void E4() : {} {<identificador> | <numero> | booleano() | "(" E() ")"}
 
 	void booleano() : {} {<true_t> | <false_t>}
@@ -55,4 +55,4 @@ public class AnalizadorSintacticoTiny {}
 	void OP0() : {} {<eq> | <neq> | "<" | <let> | ">" | <get>}
 	void OP1() : {} {<and> | <or>}
 	void OP2() : {}{"+" | "-" | "*" | "/"}
-	void OP3() : {}{"+" | "-"}
+	void OP3() : {}{"+" | "-" | <not>}
