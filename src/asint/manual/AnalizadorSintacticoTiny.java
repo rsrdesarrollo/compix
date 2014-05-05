@@ -80,14 +80,8 @@ public class AnalizadorSintacticoTiny {
 		case ENT:
 		case IDEN:
 		case PAP:
-			E1();
-			E_r();
-			break;
 		case FALSE:
 		case TRUE:
-			E1();
-			E_r();
-			break;
 		case ADD:
 		case SUB:
 		case NOT:
@@ -131,25 +125,13 @@ public class AnalizadorSintacticoTiny {
 		case ENT:
 		case IDEN:
 		case PAP:
-			E2();
-			E1_s();
-			break;
-		case NOT:
-			empareja(ClaseLexica.NOT);
-			E2();
-			E1_s();
-			break;
 		case FALSE:
 		case TRUE:
-			booleano();
-			E2();
-			E1_s();
-			break;
 		case ADD:
 		case SUB:
-			OP3();
+		case NOT:
 			E2();
-			E1_s();
+			E1_r();
 			break;
 		default:
 			errores.errorSintactico(anticipo.fila(), anticipo.clase(),
@@ -159,7 +141,7 @@ public class AnalizadorSintacticoTiny {
 		}
 	}
 
-	private void E1_s() {
+	private void E1_r() {
 		switch (anticipo.clase()) {
 		case EQ:
 		case NEQ:
@@ -175,7 +157,7 @@ public class AnalizadorSintacticoTiny {
 		case OR:
 			OP1();
 			E2();
-			E1_s();
+			E1_r();
 			break;
 		default:
 			errores.errorSintactico(anticipo.fila(), anticipo.clase(),
@@ -190,19 +172,12 @@ public class AnalizadorSintacticoTiny {
 		switch (anticipo.clase()) {
 		case ENT:
 		case IDEN:
-		case NOT:
 		case PAP:
-			E3();
-			E2_r();
-			break;
 		case FALSE:
 		case TRUE:
-			E3();
-			E2_r();
-			break;
+		case NOT:
 		case ADD:
 		case SUB:
-			OP3();
 			E3();
 			E2_r();
 			break;
@@ -225,7 +200,6 @@ public class AnalizadorSintacticoTiny {
 		case PCI:
 		case PUNTO_COMA:
 		case EOF:
-			break;
 		case AND:
 		case OR:
 			break;
@@ -250,17 +224,16 @@ public class AnalizadorSintacticoTiny {
 		switch (anticipo.clase()) {
 		case ENT:
 		case IDEN:
-		case NOT:
 		case PAP:
-			E4();
-			break;
 		case FALSE:
 		case TRUE:
 			E4();
 			break;
 		case ADD:
 		case SUB:
-			E3();
+		case NOT:
+			OP3();
+			E4();
 			break;
 		default:
 			errores.errorSintactico(anticipo.fila(), anticipo.clase(),
@@ -319,7 +292,7 @@ public class AnalizadorSintacticoTiny {
 		switch (anticipo.clase()) {
 		case IDEN:
 			instruccion();
-			instrucciones_s();
+			instrucciones_r();
 			break;
 		default:
 			errores.errorSintactico(anticipo.fila(), anticipo.clase(),
@@ -327,11 +300,12 @@ public class AnalizadorSintacticoTiny {
 		}
 	}
 
-	private void instrucciones_s() {
+	private void instrucciones_r() {
 		switch (anticipo.clase()) {
 		case PUNTO_COMA:
 			empareja(ClaseLexica.PUNTO_COMA);
-			instrucciones();
+			instruccion();
+			instrucciones_r();
 			break;
 		case EOF:
 			break;
