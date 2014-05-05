@@ -52,7 +52,7 @@ public class AnalizadorSintacticoTiny {
 		case INT:
 		case BOOL:
 			declaracion();
-			declaraciones_s();
+			declaraciones_r();
 			break;
 		default:
 			errores.errorSintactico(anticipo.fila(), anticipo.clase(),
@@ -60,13 +60,14 @@ public class AnalizadorSintacticoTiny {
 		}
 	}
 
-	private void declaraciones_s() {
+	private void declaraciones_r() {
 		switch (anticipo.clase()) {
 		case DIV_SEC:
 			break;
 		case PUNTO_COMA:
 			empareja(ClaseLexica.PUNTO_COMA);
-			declaraciones();
+			declaracion();
+			declaraciones_r();
 			break;
 		default:
 			errores.errorSintactico(anticipo.fila(), anticipo.clase(),
@@ -78,22 +79,20 @@ public class AnalizadorSintacticoTiny {
 		switch (anticipo.clase()) {
 		case ENT:
 		case IDEN:
-		case NOT:
 		case PAP:
 			E1();
-			E_s();
+			E_r();
 			break;
 		case FALSE:
 		case TRUE:
-			booleano();
 			E1();
-			E_s();
+			E_r();
 			break;
 		case ADD:
 		case SUB:
-			OP3();
+		case NOT:
 			E1();
-			E_s();
+			E_r();
 			break;
 		default:
 			errores.errorSintactico(anticipo.fila(), anticipo.clase(),
@@ -103,7 +102,7 @@ public class AnalizadorSintacticoTiny {
 		}
 	}
 
-	private void E_s() {
+	private void E_r() {
 		switch (anticipo.clase()) {
 		case EQ:
 		case NEQ:
@@ -194,19 +193,18 @@ public class AnalizadorSintacticoTiny {
 		case NOT:
 		case PAP:
 			E3();
-			E2_s();
+			E2_r();
 			break;
 		case FALSE:
 		case TRUE:
-			booleano();
 			E3();
-			E2_s();
+			E2_r();
 			break;
 		case ADD:
 		case SUB:
 			OP3();
 			E3();
-			E2_s();
+			E2_r();
 			break;
 		default:
 			errores.errorSintactico(anticipo.fila(), anticipo.clase(),
@@ -216,7 +214,7 @@ public class AnalizadorSintacticoTiny {
 		}
 	}
 
-	private void E2_s() {
+	private void E2_r() {
 		switch (anticipo.clase()) {
 		case EQ:
 		case NEQ:
@@ -237,7 +235,7 @@ public class AnalizadorSintacticoTiny {
 		case DIV:
 			OP2();
 			E3();
-			E2_s();
+			E2_r();
 			break;
 		default:
 			errores.errorSintactico(anticipo.fila(), anticipo.clase(),
@@ -258,12 +256,10 @@ public class AnalizadorSintacticoTiny {
 			break;
 		case FALSE:
 		case TRUE:
-			booleano();
 			E4();
 			break;
 		case ADD:
 		case SUB:
-			OP3();
 			E3();
 			break;
 		default:
@@ -414,6 +410,9 @@ public class AnalizadorSintacticoTiny {
 			break;
 		case SUB:
 			empareja(ClaseLexica.SUB);
+			break;
+		case NOT:
+			empareja(ClaseLexica.NOT);
 			break;
 		default:
 			errores.errorSintactico(anticipo.fila(), anticipo.clase(),
